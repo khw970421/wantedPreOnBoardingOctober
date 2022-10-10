@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 import useRouter from "../utils/useRouter";
 
-const routing = {
-  about: "root",
-  root: "about",
-};
-const routingBtn = {
-  about: "go main",
-  root: "about",
-};
-
 const Root = () => {
   const [router, setRouter] = useState("root");
+  const { path } = useRouter();
+
   const goAbout = () => {
-    useRouter(routing[router] === "root" ? "/" : `/${routing[router]}`);
+    path(routing[router]);
     setRouter(routing[router]);
   };
 
@@ -27,6 +20,15 @@ const Root = () => {
       <button onClick={goAbout}>{routingBtn[router]}</button>
     </div>
   );
+};
+
+const routing = {
+  about: "root",
+  root: "about",
+};
+const routingBtn = {
+  about: "go main",
+  root: "about",
 };
 
 export default Root;

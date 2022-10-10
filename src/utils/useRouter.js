@@ -1,6 +1,10 @@
-const useRouter = (params) => {
-  window.history.pushState({}, "", params);
-  console.log("useRouter");
+const useRouter = () => {
+  return {
+    path: (params) => {
+      const checkParams = params === "root" ? "/" : `/${params}`;
+      window.history.pushState({}, "", checkParams);
+    },
+  };
 };
 
 export default useRouter;
