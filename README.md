@@ -86,6 +86,35 @@ getStaticPaths: pages/\*\*/[id].tsx 형태의 동적 라우팅 페이지 중, �
 getStaticProps를 사용하지 않고 getStaticPaths만 쓴다면 `Error : Without getStaticProps, getStaticPaths does nothing` 라고 한다. 
 즉, getStaticPaths를 위해 getStaticProps는 필요하다는 것이다.
 
+# 🔥 실행결과
+## 1.md
+```md
+# This is a H1
+## This is a H2
+### This is a H3
+```
+
+## 2.md
+```md
+#### This is a H4
+
+##### This is a H5
+
+###### This is a H6
+```
+## 3.md
+```md
+# 1. CSR(Client-side Rendering)이란 무엇이며, 그것의 장단점에 대하여 설명해주세요.
+
+> CSR이란 클라이언트단에서 렌더링을 진행하는 것으로
+> 해당 장점으로는 페이지를 이동할 때마다 깜빡임이 없이 렌더링 되어 사용자 측면에서 좋으나
+> 단점으로 HTML이 채워지는데 SEO가 최적화를 거의 못하기 때문에 안좋고 초기 렌더링이 client에서 일어나 시간이 다소 소요된다.
+
+# 2. SPA(Single Page Application)로 구성된 웹 앱에서 SSR(Server-side Rendering)이 필요한 이유에 대하여 설명해주세요.
+
+> SSR로 SEO의 성능을 늘려줄수 있고 초기 렌더링 시에 CSR에 비해 서버에서 렌더링을 진행하여 CSR에 비해 렌더링 시간이 빠르기 때문에 UX적으로 빠르게 렌더링 된 화면을 볼 수 있다.
+```
+
 # 📑 깨달은 점
 
 1. node.js에서 파일을 가져오는 방식에 대한 개념도 기본적으로는 알아야 이러한 과제를 대처할 수 있을것이라 생각
