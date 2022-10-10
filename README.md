@@ -1,34 +1,93 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#📖 Next.js로 마크다운 블로그 만들기 (1/2)
 
-## Getting Started
+<aside>
+💡 Next.js로 마크다운으로 작성한 블로그를 정적 페이지(SSG)로 작성해주세요.
 
-First, run the development server:
+</aside>
 
-```bash
-npm run dev
-# or
-yarn dev
+**:: 폴더 구조 및 라우팅**
+
+- 사용자는 루트 경로의 `__posts` 폴더에 작성된 마크다운 파일(`.md`)를 작성할 수 있어야 합니다. 해당 파일은 마크다운 본문과 게시물에 대한 meta data를 담을 수 있어야 합니다. 아래는 마크다운에 jekyll에서 만든 `frontmatter`라는 문법([링크](https://jekyllrb.com/docs/front-matter/))을 적용한 예시입니다.
+
+  ```markdown
+  ---
+  categories:
+    - Development
+    - VIM
+  date: "2012-04-06"
+  description: 설명을 적는 곳입니다
+  slug: spf13-vim-3-0-release-and-new-website
+  tags:
+    - .vimrc
+    - plugins
+    - spf13-vim
+    - vim
+  title: hello
+  ---
+
+  ## 예시입니다
+
+  - 예시입니다
+  ```
+
+- 블로그에 작성된 게시물을 렌더링하는 `목록 페이지`와 개별 게시물을 렌더링하는 `상세 페이지`로 나누어 작성해주세요.
+  - `/` - 목록 페이지
+  - `/[id]` - 상세 페이지
+  - 마크다운을 JavaScript로 변환해주는 도구는 `remark`(마크다운 Parser), `remark-html`(remark로 파싱한 데이터를 html로 변환) 을 참고
+  - 각 마크다운의 meta data는 `gray-matter`, `frontmatter` 참고
+  - 마크다운을 React에 삽입할 때는 `dangerouslySetInnerHTML` 을 사용 ([참고 링크](https://ko.reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml))
+  - (추가 구현) 코드 하이라이터는 `highlight.js`, `prism.js` 를 참고
+
+**:: Next.js에서 지원하는 Prefetching 메서드를 적절히 사용해주세요.**
+
+- 정적 페이지를 생성할 때 필요한 데이터 생성 → `getStaticProps`
+- 각 포스트를 그려줄 상세 페이지 경로를 생성 → `getStaticPaths`
+
+# 📚 구현 내용
+
+## SSG를 사용을 위한 getStaticProps 생각 필요 (getServerSideProps는 SSR과 연관)
+
+## 목록페이지와 상세페이지 판단
+
+## 마크다운을 HTML 형태로 만드는 방법
+
+```js
+const file = await unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypeStringify)
+  .process(data);
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> remark(마크다운 Parser), remark-html(remark로 파싱한 데이터를 html로 변환) 을 참고
+> [링크](https://github.com/remarkjs/remark)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 파일과 폴더를 읽는 방법
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### 폴더 읽기
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+`fs.readdirSync("__posts");`
 
-## Learn More
+### 파일 읽기
 
-To learn more about Next.js, take a look at the following resources:
+```js
+const fileData = fs.readFileSync(`__posts/${params.id}`, "utf-8");
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> `readFile`을 사용할경우 진행되는 처리가 Promise로 전달되거나 undefined로 갱신이 안되는 상황이 발생하기에 `readFileSync`를 사용
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## getStaticPaths와 getStaticProps
 
-## Deploy on Vercel
+getStaticProps: 빌드 시 데이터를 fetch하여 static 페이지를 생성
+getStaticPaths: pages/\*\*/[id].tsx 형태의 동적 라우팅 페이지 중, 빌드 시에 static하게 생성할 페이지를 정함
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#📑 깨달은 점
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. node.js에서 파일을 가져오는 방식에 대한 개념도 기본적으로는 알아야 이러한 과제를 대처할 수 있을것이라 생각
+2. fs를 사용하는데 있어서 CSR부분의 코드가 아닌 SSR이나 SSG부분의 코드에서 사용할 수 있는 파일의 가져오기 부분이라고 생각
+3. 마크다운을 HTML로 처리하는 방법에 대해서 처음 알게되어 흥미로웠다
+
+# 🤔 아쉬운점
+
+> `[id].js` 코드에서 return path를 1.md, 2.md, 3.md 고정시켜놨는데 md 파일이 추가되면 어떻게 처리해야하는 것인지에 대한 의문이 남는다. (일일히 하나하나 추가하는 불편함이 있지않나 생각이든다.)
+> 아직 getStaticPaths에 대한 이해가 부족하다고 생각한다.
