@@ -1,20 +1,16 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Root from "./pages/Root";
 import About from "./pages/About";
+import Router from "./components/Router";
+import Route from "./components/Route";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Root />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </Router>
+    <>
+      <Route path="/" component={<Root />} />
+      <Route path="/about" component={<About />} />
+    </>
   );
 }
 
