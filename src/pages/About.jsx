@@ -17,6 +17,10 @@ const About = () => {
     setRouter(routing[router]);
   };
 
+  window.onpopstate = () => {
+    goRoot();
+  };
+
   return (
     <div>
       <div>{router}</div>
