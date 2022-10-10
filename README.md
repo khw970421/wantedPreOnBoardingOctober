@@ -87,12 +87,15 @@ getStaticProps를 사용하지 않고 getStaticPaths만 쓴다면 `Error : Witho
 즉, getStaticPaths를 위해 getStaticProps는 필요하다는 것이다.
 
 # 🔥 실행결과
+<img width="196" alt="image" src="https://user-images.githubusercontent.com/59253551/194836406-cd8ffe4b-1dcc-4af6-91d6-595bef74ac25.png">
+
 ## 1.md
 ```md
 # This is a H1
 ## This is a H2
 ### This is a H3
 ```
+<img width="233" alt="image" src="https://user-images.githubusercontent.com/59253551/194836416-6c570f25-5cb0-4a55-9fa9-1f13dacd9607.png">
 
 ## 2.md
 ```md
@@ -102,6 +105,8 @@ getStaticProps를 사용하지 않고 getStaticPaths만 쓴다면 `Error : Witho
 
 ###### This is a H6
 ```
+<img width="1280" alt="image" src="https://user-images.githubusercontent.com/59253551/194836434-ff9b11c8-43d9-49e8-8fde-a58e3c65a5e4.png">
+
 ## 3.md
 ```md
 # 1. CSR(Client-side Rendering)이란 무엇이며, 그것의 장단점에 대하여 설명해주세요.
@@ -114,6 +119,8 @@ getStaticProps를 사용하지 않고 getStaticPaths만 쓴다면 `Error : Witho
 
 > SSR로 SEO의 성능을 늘려줄수 있고 초기 렌더링 시에 CSR에 비해 서버에서 렌더링을 진행하여 CSR에 비해 렌더링 시간이 빠르기 때문에 UX적으로 빠르게 렌더링 된 화면을 볼 수 있다.
 ```
+<img width="238" alt="image" src="https://user-images.githubusercontent.com/59253551/194836470-6742d563-43ea-46e8-b091-872a13c1e531.png">
+
 
 # 📑 깨달은 점
 
