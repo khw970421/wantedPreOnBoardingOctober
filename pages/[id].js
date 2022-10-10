@@ -7,25 +7,31 @@ function createMarkup(string) {
   return { __html: `${string}` };
 }
 
-const Id = (props) => {
+const Id = ({ fileData }) => {
   const [string, setString] = useState("");
   useEffect(() => {
-    markdown(setString, "# Hello, Neptune!");
+    markdown(setString, fileData);
   }, []);
   return <div dangerouslySetInnerHTML={createMarkup(string)} />;
 };
 
-export const getServerSideProps = async () => {
-  // Todos : 파일 전달
-  let fileData = "";
-  fs.readFile(`__posts/1.md`, "utf-8", (err, data) => {
-    if (err) return console.log(err);
-    fileData = data;
-  });
+// Generates `/posts/1` and `/posts/2`
+export async function getStaticPaths(props) {
+  return {
+    paths: [
+      { params: { id: "1.md" } },
+      { params: { id: "2.md" } },
+      { params: { id: "3.md" } },
+    ],
+    fallback: false, // can also be true or 'blocking'
+  };
+}
 
+// `getStaticPaths` requires using `getStaticProps`
+export async function getStaticProps({ params }) {
+  const fileData = fs.readFileSync(`__posts/${params.id}`, "utf-8");
   return {
     props: { fileData },
   };
-};
-
+}
 export default Id;
