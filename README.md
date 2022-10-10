@@ -82,6 +82,10 @@ const fileData = fs.readFileSync(`__posts/${params.id}`, "utf-8");
 getStaticProps: 빌드 시 데이터를 fetch하여 static 페이지를 생성
 getStaticPaths: pages/\*\*/[id].tsx 형태의 동적 라우팅 페이지 중, 빌드 시에 static하게 생성할 페이지를 정함
 
+### 동적페이지의 경우
+getStaticProps를 사용하지 않고 getStaticPaths만 쓴다면 `Error : Without getStaticProps, getStaticPaths does nothing` 라고 한다. 
+즉, getStaticPaths를 위해 getStaticProps는 필요하다는 것이다.
+
 # 📑 깨달은 점
 
 1. node.js에서 파일을 가져오는 방식에 대한 개념도 기본적으로는 알아야 이러한 과제를 대처할 수 있을것이라 생각
