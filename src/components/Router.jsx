@@ -1,7 +1,13 @@
 import React from "react";
 
-const Router = () => {
-  return <div></div>;
+const Router = ({ children }) => {
+  return (
+    <>
+      {children.filter(({ props }) => {
+        return props.path === window.location.pathname;
+      })}
+    </>
+  );
 };
 
 export default Router;

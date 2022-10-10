@@ -1,7 +1,7 @@
 import React from "react";
 
-const Route = ({ path, component }) => {
-  return <div>{window.location.pathname === path && component}</div>;
+const Route = ({ component }) => {
+  return <div>{component}</div>;
 };
 
 export default Route;
