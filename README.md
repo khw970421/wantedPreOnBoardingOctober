@@ -105,7 +105,7 @@ getStaticProps를 사용하지 않고 getStaticPaths만 쓴다면 `Error : Witho
 
 ###### This is a H6
 ```
-<img width="1280" alt="image" src="https://user-images.githubusercontent.com/59253551/194836434-ff9b11c8-43d9-49e8-8fde-a58e3c65a5e4.png">
+<img width="238" alt="image" src="https://user-images.githubusercontent.com/59253551/194836470-6742d563-43ea-46e8-b091-872a13c1e531.png">
 
 ## 3.md
 ```md
@@ -119,8 +119,8 @@ getStaticProps를 사용하지 않고 getStaticPaths만 쓴다면 `Error : Witho
 
 > SSR로 SEO의 성능을 늘려줄수 있고 초기 렌더링 시에 CSR에 비해 서버에서 렌더링을 진행하여 CSR에 비해 렌더링 시간이 빠르기 때문에 UX적으로 빠르게 렌더링 된 화면을 볼 수 있다.
 ```
-<img width="238" alt="image" src="https://user-images.githubusercontent.com/59253551/194836470-6742d563-43ea-46e8-b091-872a13c1e531.png">
 
+<img width="1280" alt="image" src="https://user-images.githubusercontent.com/59253551/194836434-ff9b11c8-43d9-49e8-8fde-a58e3c65a5e4.png">
 
 # 📑 깨달은 점
 
