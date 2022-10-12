@@ -132,3 +132,36 @@ getStaticProps를 사용하지 않고 getStaticPaths만 쓴다면 `Error : Witho
 
 > `[id].js` 코드에서 return path를 1.md, 2.md, 3.md 고정시켜놨는데 md 파일이 추가되면 어떻게 처리해야하는 것인지에 대한 의문이 남는다. (일일히 하나하나 추가하는 불편함이 있지않나 생각이든다.)
 > 아직 getStaticPaths에 대한 이해가 부족하다고 생각한다.
+ 
+# ⭕ 아쉬운 부분 해결
+> 해당 부분을 마찬가지로 `readdirSync`를 이용해 md파일을 가져와 이를 map으로 돌려 처리하면 굳이 매번 일일히 처리해줄 필요가 없는 것이다. 
+(이미 app.js에서 했는데 이 부분을 생각을 못했다.)
+
+## 기존코드
+```js
+export async function getStaticPaths(props) {
+  return {
+    paths: [
+      { params: { id: "1.md" } },
+      { params: { id: "2.md" } },
+      { params: { id: "3.md" } },
+    ],
+    fallback: false, // can also be true or 'blocking'
+  };
+}
+```
+
+## 수정코드
+```js
+export async function getStaticPaths(props) {
+  var files = fs.readdirSync("__posts");
+  return {
+    paths: files.map((file) => ({
+      params: {
+        id: file,
+      },
+    })),
+    fallback: false, // can also be true or 'blocking'
+  };
+}
+```
