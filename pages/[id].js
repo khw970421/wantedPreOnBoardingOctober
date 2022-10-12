@@ -17,12 +17,13 @@ const Id = ({ fileData }) => {
 
 // Generates `/posts/1` and `/posts/2`
 export async function getStaticPaths(props) {
+  var files = fs.readdirSync("__posts");
   return {
-    paths: [
-      { params: { id: "1.md" } },
-      { params: { id: "2.md" } },
-      { params: { id: "3.md" } },
-    ],
+    paths: files.map((file) => ({
+      params: {
+        id: file,
+      },
+    })),
     fallback: false, // can also be true or 'blocking'
   };
 }
