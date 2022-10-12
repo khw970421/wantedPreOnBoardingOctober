@@ -1,4 +1,4 @@
-#📖 Next.js로 마크다운 블로그 만들기 (1/2)
+# 📖 Next.js로 마크다운 블로그 만들기 (1/2)
 
 <aside>
 💡 Next.js로 마크다운으로 작성한 블로그를 정적 페이지(SSG)로 작성해주세요.
@@ -44,6 +44,7 @@
 - 각 포스트를 그려줄 상세 페이지 경로를 생성 → `getStaticPaths`
 
 # 📚 구현 내용
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/59253551/194834486-8b7a7fdb-c23e-4b10-b46c-2a1a475bd97e.png">
 
 ## SSG를 사용을 위한 getStaticProps 생각 필요 (getServerSideProps는 SSR과 연관)
 
@@ -81,7 +82,47 @@ const fileData = fs.readFileSync(`__posts/${params.id}`, "utf-8");
 getStaticProps: 빌드 시 데이터를 fetch하여 static 페이지를 생성
 getStaticPaths: pages/\*\*/[id].tsx 형태의 동적 라우팅 페이지 중, 빌드 시에 static하게 생성할 페이지를 정함
 
-#📑 깨달은 점
+### 동적페이지의 경우
+getStaticProps를 사용하지 않고 getStaticPaths만 쓴다면 `Error : Without getStaticProps, getStaticPaths does nothing` 라고 한다. 
+즉, getStaticPaths를 위해 getStaticProps는 필요하다는 것이다.
+
+# 🔥 실행결과
+<img width="196" alt="image" src="https://user-images.githubusercontent.com/59253551/194836406-cd8ffe4b-1dcc-4af6-91d6-595bef74ac25.png">
+
+## 1.md
+```md
+# This is a H1
+## This is a H2
+### This is a H3
+```
+<img width="233" alt="image" src="https://user-images.githubusercontent.com/59253551/194836416-6c570f25-5cb0-4a55-9fa9-1f13dacd9607.png">
+
+## 2.md
+```md
+#### This is a H4
+
+##### This is a H5
+
+###### This is a H6
+```
+<img width="238" alt="image" src="https://user-images.githubusercontent.com/59253551/194836470-6742d563-43ea-46e8-b091-872a13c1e531.png">
+
+## 3.md
+```md
+# 1. CSR(Client-side Rendering)이란 무엇이며, 그것의 장단점에 대하여 설명해주세요.
+
+> CSR이란 클라이언트단에서 렌더링을 진행하는 것으로
+> 해당 장점으로는 페이지를 이동할 때마다 깜빡임이 없이 렌더링 되어 사용자 측면에서 좋으나
+> 단점으로 HTML이 채워지는데 SEO가 최적화를 거의 못하기 때문에 안좋고 초기 렌더링이 client에서 일어나 시간이 다소 소요된다.
+
+# 2. SPA(Single Page Application)로 구성된 웹 앱에서 SSR(Server-side Rendering)이 필요한 이유에 대하여 설명해주세요.
+
+> SSR로 SEO의 성능을 늘려줄수 있고 초기 렌더링 시에 CSR에 비해 서버에서 렌더링을 진행하여 CSR에 비해 렌더링 시간이 빠르기 때문에 UX적으로 빠르게 렌더링 된 화면을 볼 수 있다.
+```
+
+<img width="1280" alt="image" src="https://user-images.githubusercontent.com/59253551/194836434-ff9b11c8-43d9-49e8-8fde-a58e3c65a5e4.png">
+
+# 📑 깨달은 점
 
 1. node.js에서 파일을 가져오는 방식에 대한 개념도 기본적으로는 알아야 이러한 과제를 대처할 수 있을것이라 생각
 2. fs를 사용하는데 있어서 CSR부분의 코드가 아닌 SSR이나 SSG부분의 코드에서 사용할 수 있는 파일의 가져오기 부분이라고 생각
